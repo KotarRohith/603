@@ -1,0 +1,66 @@
+WITH cte AS (
+    SELECT lat_n, 
+           RANK() OVER (ORDER BY lat_n) AS rank_no,
+           COUNT(lat_n) OVER () AS total_count
+    FROM station
+)
+SELECT ROUND(lat_n, 4)
+FROM cte
+WHERE rank_no = (total_count + 1) / 2;
+
+Explaination-
+
+This SQL query is designed to retrieve a specific latitude value from a dataset stored in a table named "station." The goal is to find the median latitude value from the dataset.
+
+lat_n
+35.123
+34.567
+36.789
+38.901
+39.876
+33.456
+
+WITH cte AS (
+    SELECT lat_n, 
+           RANK() OVER (ORDER BY lat_n) AS rank_no,
+           COUNT(lat_n) OVER () AS total_count
+    FROM station
+)
+
+For the given sample data, the CTE would generate the following intermediate result:
+
+lat_n	rank_no	total_count
+33.456	1	6
+34.567	2	6
+35.123	3	6
+36.789	4	6
+38.901	5	6
+39.876	6	6
+
+Main Query:
+
+The main query selects rounded latitude values from the CTE. It specifically targets the latitude value that corresponds to the median. In SQL, the median is the value that lies at the middle position when the data is ordered.
+
+
+SELECT ROUND(lat_n, 4)
+FROM cte
+WHERE rank_no = (total_count + 1) / 2;
+In our sample data, the total count is 6. So, the formula (total_count + 1) / 2 calculates the position of the median. In this case, (6 + 1) / 2 = 3.5. Since the rank values are whole numbers, we are looking for the latitude value with a rank of 3.5. However, since rank values are integers, the query will round down to the nearest integer, which is 3. Therefore, the query will retrieve the latitude value where rank_no = 3, which is 35.123.
+
+So, the final result of the query, based on the sample data, would be:
+
+ROUND(lat_n, 4)
+35.123
+
+
+Without CTE-
+
+SELECT ROUND(lat_n, 4)
+FROM (
+    SELECT lat_n,
+           RANK() OVER (ORDER BY lat_n) AS rank_no,
+           COUNT(lat_n) OVER () AS total_count
+    FROM station
+) AS subquery
+WHERE rank_no = (total_count + 1) / 2;
+
