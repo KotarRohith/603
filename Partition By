@@ -3,11 +3,11 @@ Certainly! Let's work through a simple example using sample data to understand t
 Consider the following sample data in a hypothetical "Sales" table:
 
 sales_id	product_id	category	sales_amount
-1	101	A	200
-2	102	B	150
-3	103	A	300
-4	104	B	180
-5	105	A	250
+1	101	                    A	200
+2	102	                    B	150
+3	103	                    A	300
+4	104	                    B	180
+5	105	                    A	250
 Now, let's say we want to calculate the average sales amount for each product category and show the average along with each sale's details.
 
 
