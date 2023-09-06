@@ -1,0 +1,2 @@
+select * from(select *,avg(marks) over(partition by branch) as avg_marks from table) t where t.marks>t.avg_marks
+
