@@ -1,0 +1,9 @@
+select *,rank() over(order by marks desc) from table;  #overall table
+select *,rank() over(partition by branch order by marks desc) from table; #branch wise
+
+
+marks    Rank()                              Dense_rank()
+        ------------------------------------------------
+95        1                                       1
+95        1                                       1
+92        3                                       2
