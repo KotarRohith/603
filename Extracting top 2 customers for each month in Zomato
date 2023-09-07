@@ -1,0 +1,9 @@
+select * from( select monthname(date) as 'month',user_id,sum(amount) as 'total',
+rank() over(partition by monthname(date) order by sum(amount) desc)  as 'month_rank'
+from zomato 
+group by monthname(date),user_id 
+order by 
+month(date)) t
+where month_rank<3
+order by month desc,month_rank asc
+
