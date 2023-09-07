@@ -1,0 +1,25 @@
+
+Sample employees table:
+
+employee_id	employee_name	department	hire_date
+1	Alice	HR	2020-01-15
+2	Bob	HR	2020-02-20
+3	Carol	HR	2020-03-10
+4	David	IT	2019-12-05
+5	Emma	IT	2020-02-25
+6	Frank	IT	2020-04-18
+
+
+Output:
+
+department	GROUP_CONCAT(employee_name ORDER BY hire_date ASC LIMIT 3)
+HR	Alice,Bob,Carol
+IT	David,Emma,Frank
+
+
+
+Query-
+
+SELECT department, GROUP_CONCAT(employee_name ORDER BY hire_date ASC LIMIT 3)
+FROM employees
+GROUP BY department;
