@@ -1,0 +1,1 @@
+select id, hm, sum(m_score) total_score from ( select h.hacker_id id, h.name hm, s.challenge_id, max(s.score) m_score from submissions s inner join hackers h on s.hacker_id = h.hacker_id group by id, hm, s.challenge_id) temp group by id, hm having sum(m_score) > 0 order by total_score DESC, id
